@@ -34,6 +34,7 @@ const options = {
     "./routes/auth.route.js",
     "./routes/movie.route.js",
     "./routes/tv.route.js",
+    "./routes/search.route.js",
   ],
 };
 
