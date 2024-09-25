@@ -62,14 +62,44 @@ async function signup(req, res) {
 }
 
 async function login(req, res) {
-  res.status(200).json({ message: "Login route" });
+  try {
+    const { email, password } = req.body;
+    if (!email || !password) {
+      return res.status(400).json({
+        success: false,
+        message: "All fields are required",
+      });
+    }
+    const user = await User.findOne({ email });
+    if (!user) {
+      res.status(400).json({ success: false, message: "invalid credentials" });
+    }
+    const isPasswordCorrest = await bcrypt.compare(password, user.password);
+    if (!isPasswordCorrest) {
+      res.status(400).json({ success: false, message: "invalid credentials" });
+    }
+
+    generateTokenAndSetCookie(user._id, res);
+    return res.status(200).json({
+      success: true,
+      message: "Login successful",
+      user: { ...user._doc, password: "" },
+    });
+  } catch (error) {
+    console.log("Error in login controller: ", error.message);
+    res.status(500).json({ success: false, message: "Internal server error" });
+  }
 }
 
 async function logout(req, res) {
   try {
     res.clearCookie("jwt-netflix");
     res.status(200).json({ status: true, message: "Logout successfully" });
-  } catch (error) {}
+  } catch (error) {
+    console.log("Error In logout controller: ", error.message);
+    res.status(500).json({ success: false, message: "Internal server error" });
+  }
 }
 
 export { signup, login, logout };
+ 
