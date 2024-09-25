@@ -14,7 +14,7 @@ const getTredningMovie = async (req, res) => {
   }
 };
 
-const getMoviewTrailers = async (req, res) => {
+const getMovieTrailers = async (req, res) => {
   const { id } = req.params;
 
   try {
@@ -71,7 +71,7 @@ const getMoviesByCategory = async (req, res) => {
 
 export {
   getTredningMovie,
-  getMoviewTrailers,
+  getMovieTrailers,
   getMovieDetails,
   getSimilarMovies,
   getMoviesByCategory

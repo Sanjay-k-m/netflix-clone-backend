@@ -1,7 +1,7 @@
 import express from "express";
 import {
   getTredningMovie,
-  getMoviewTrailers,
+  getMovieTrailers,
   getMovieDetails,
   getSimilarMovies,
   getMoviesByCategory,
@@ -10,7 +10,7 @@ import {
 const router = express.Router();
 
 router.get("/trending", getTredningMovie);
-router.get("/:id/trailers", getMoviewTrailers);
+router.get("/:id/trailers", getMovieTrailers);
 router.get("/:id/details", getMovieDetails);
 router.get("/:id/similar", getSimilarMovies);
 router.get("/:category", getMoviesByCategory);
