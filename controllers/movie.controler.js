@@ -45,4 +45,34 @@ const getMovieDetails = async (req, res) => {
   }
 };
 
-export { getTredningMovie, getMoviewTrailers ,getMovieDetails};
+const getSimilarMovies = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const data = await fetchFromTMDB(
+      `https://api.themoviedb.org/3/movie/${id}/similar?language=en-US&page=1`
+    );
+    res.status(200).json({ success: true, similar: data.results });
+  } catch (error) {
+    res.status(500).json({ success: false, message: "Internal server error" });
+  }
+};
+
+const getMoviesByCategory = async (req, res) => {
+  const { category } = req.params;
+  try {
+    const data = await fetchFromTMDB(
+      `https://api.themoviedb.org/3/movie/${category}?language=en-US&page=1`
+    );
+    res.status(200).json({ success: true, content: data.results });
+  } catch (error) {
+    res.status(500).json({ success: false, message: "Internal server error" });
+  }
+};
+
+export {
+  getTredningMovie,
+  getMoviewTrailers,
+  getMovieDetails,
+  getSimilarMovies,
+  getMoviesByCategory
+};
