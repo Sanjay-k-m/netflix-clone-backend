@@ -12,7 +12,7 @@ const options = {
     },
     servers: [
       {
-        url: `http://localhost:${ENV_VARS.PORT}/api`,
+        url: `http://localhost:${ENV_VARS.PORT}/api/v1`,
       },
     ],
     components: {

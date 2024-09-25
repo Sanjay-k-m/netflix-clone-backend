@@ -1,6 +1,6 @@
 import axios from "axios";
 import { ENV_VARS } from "../config/envVars.js";
-export const fetchFromTMDB = async (url) => {
+const fetchFromTMDB = async (url) => {
   const requestHeaders = {
     accept: "application/json",
     Authorization: `Bearer ${ENV_VARS.TMDB_API_KEY}`,
@@ -18,3 +18,5 @@ export const fetchFromTMDB = async (url) => {
     throw new Error(`Error fetching data from TMDB: ${error.message}`);
   }
 };
+
+export { fetchFromTMDB };
