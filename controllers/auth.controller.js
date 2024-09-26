@@ -101,5 +101,14 @@ async function logout(req, res) {
   }
 }
 
-export { signup, login, logout };
+const authCheck = async (req,res)=>{
+  try {
+    res.status(200).jason({success:true,user:req.user})
+  } catch (error) {
+    console.log("Error in checkAuth controller: ", error.message);
+    res.status(500).json({ success: false, message: "Internal server error" });
+  }
+}
+
+export { signup, login, logout,authCheck };
  
