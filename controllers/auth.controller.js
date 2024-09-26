@@ -72,11 +72,15 @@ async function login(req, res) {
     }
     const user = await User.findOne({ email });
     if (!user) {
-      res.status(400).json({ success: false, message: "invalid credentials" });
+      return res
+        .status(400)
+        .json({ success: false, message: "invalid credentials" });
     }
     const isPasswordCorrest = await bcrypt.compare(password, user.password);
     if (!isPasswordCorrest) {
-      res.status(400).json({ success: false, message: "invalid credentials" });
+      return res
+        .status(400)
+        .json({ success: false, message: "invalid credentials" });
     }
 
     generateTokenAndSetCookie(user._id, res);
