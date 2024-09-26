@@ -150,7 +150,7 @@ router.post("/logout", logout);
 
 /**
  * @swagger
- * /auth/authCheck:
+ * /auth/auth-check:
  *  get:
  *    summary: Check if the user is authenticated
  *    responses:
