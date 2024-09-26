@@ -1,5 +1,11 @@
 import express from "express";
-import { login, logout, signup } from "../controllers/auth.controller.js";
+import {
+  authCheck,
+  login,
+  logout,
+  signup,
+} from "../controllers/auth.controller.js";
+import { protectRoute } from "../middleware/protectRoute.js";
 
 const router = express.Router();
 
@@ -142,5 +148,44 @@ router.post("/login", login);
  */
 router.post("/logout", logout);
 
-export default router;
+/**
+ * @swagger
+ * /auth/authCheck:
+ *  get:
+ *    summary: Check if the user is authenticated
+ *    responses:
+ *      200:
+ *        description: User is authenticated
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              properties:
+ *                success:
+ *                  type: boolean
+ *                user:
+ *                  type: object
+ *                  properties:
+ *                    _id:
+ *                      type: string
+ *                    username:
+ *                      type: string
+ *                    email:
+ *                      type: string
+ *                    image:
+ *                      type: string
+ *      401:
+ *        description: User is not authenticated
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              properties:
+ *                success:
+ *                  type: boolean
+ *                message:
+ *                  type: string
+ */
+router.get("/authCheck", protectRoute, authCheck);
 
+export default router;
