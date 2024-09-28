@@ -39,7 +39,7 @@ const getMovieDetails = async (req, res) => {
     res.status(200).json({ success: true, content: data });
   } catch (error) {
     if (error.message.includes("404")) {
-      res.status(404).send(null);
+      return res.status(404).send(null);
     }
     res.status(500).json({ success: false, message: "Internal server error" });
   }
